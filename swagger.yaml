@@ -1,0 +1,181 @@
+swagger: "2.0"
+info:
+  description: "Demos sobre API REST creada en Flask"
+  version: "1.0.0"
+  title: "Serie de fibonacci"
+  contact:
+    email: "cesarebaguilar@gmail.com"
+host: "localhost:5000"
+tags:
+- name: "serie"
+  description: "CRUD para control de registros."
+schemes:
+- "http"
+paths:
+  /serie:
+    get:
+      tags:
+      - "serie"
+      summary: "Obtener todos los registros"
+      description: "Obtiene los registros generados en el servicio POST para crera la serie de fibonacci."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/GetRegistries"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/BadRequest"
+    post:
+      tags:
+      - "serie"
+      summary: "Crear un nuevo registro"
+      description: "Genera un nuevo registros de la serie de fibonacci."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Cuerpo de la peticion para crera una serie de fibonacci. Valor minimo requerido para limit 2"
+        required: true
+        schema:
+          $ref: "#/definitions/CreateRegistrie"
+      responses:
+        "201":
+          description: "Created"
+          schema:
+            $ref: "#/definitions/ResponseCreate"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/BadRequest"
+  /serie/{id_serie}:
+    get:
+      tags:
+      - "serie"
+      summary: "Obtener un registro por id"
+      description: "Obtiene el registro por identificador (_id)"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_serie"
+        in: "path"
+        description: "Identificador del registro (_id)"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/GetRegistrie"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/BadRequest"
+    delete:
+      tags:
+      - "serie"
+      summary: "Eliminar una nota existente"
+      description: ""
+      operationId: "Eliminar nota"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_serie"
+        in: "path"
+        description: "Identificador del registro (_id)"
+        required: true
+        type: "string"
+      responses:
+        "204":
+          description: "Not Content"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/BadRequest"
+definitions:
+  CreateRegistrie:
+      type: "object"
+      required:
+      - "limit"
+      properties:
+        limit:
+          type: "integer"
+          example: 2
+          minimum: 2
+  ResponseCreate:
+      type: "object"
+      properties:
+        _id:
+          type: "string"
+          example: "62e57ac949139813c9553882"
+        size:
+          type: "integer"
+          example: 2
+        data:
+          type: "array"
+          items:
+            type: "integer"
+          example: [0, 1]
+  GetRegistrie:
+      type: "object"
+      properties:
+          result:
+            type: "object"
+            properties:
+              _id:
+                type: "string"
+                example: "62e57ac949139813c9553882"
+              size:
+                type: "integer"
+                example: 2
+              data:
+                type: "array"
+                items:
+                  type: "integer"
+                example: [0, 1]
+  GetRegistries:
+      type: "object"
+      properties:
+          length:
+            type: "integer"
+            example: 1
+          result:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                _id:
+                  type: "string"
+                  example: "62e57ac949139813c9553882"
+                size:
+                  type: "integer"
+                  example: 2
+                data:
+                  type: "array"
+                  items:
+                    type: "integer"
+                  example: [0, 1]
+  BadRequest:
+      type: "object"
+      required:
+      - "url"
+      - "error"
+      properties:
+        url:
+          type: "string"
+          example: "http://localhost:5000/serie"
+        error:
+          type: "string"
+          example: "400 Bad Request: The browser (or proxy) sent a request that this server could not understand."

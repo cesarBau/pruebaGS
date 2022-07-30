@@ -39,6 +39,4 @@ def file_delete(id):
         else:
             data_file.append(process)
     f.close()
-    app.logger.info(len(data_file))
-    app.logger.info(data_file)
     create_file(data_file)

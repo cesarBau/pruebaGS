@@ -37,8 +37,8 @@ def series():
 def series_create():
     app.logger.info('Method series_create init')
     body = dict(request.json)
-    message = serie_controller_post(body)
-    result = body_response(message, 201)
+    message, status_code = serie_controller_post(body)
+    result = body_response(message, status_code)
     app.logger.info('Method series_create ending')
     return result
 
@@ -47,8 +47,8 @@ def series_create():
 def get_serie_id(serie_id):
     app.logger.info('Method get_serie_id init')
     app.logger.info(f'Path param: {serie_id}')
-    message = id_controller_get(serie_id)
-    result = body_response(message, 200)
+    message, status_code = id_controller_get(serie_id)
+    result = body_response(message, status_code)
     app.logger.info('Method get_serie_id ending')
     return result
 
@@ -57,8 +57,8 @@ def get_serie_id(serie_id):
 def delete_serie_id(serie_id):
     app.logger.info('Method delete_serie_id init')
     app.logger.info(f'Path param: {serie_id}')
-    message = id_controller_delete(serie_id)
-    result = body_response(message, 204)
+    message, status_code = id_controller_delete(serie_id)
+    result = body_response(message, status_code)
     app.logger.info('Method delete_serie_id ending')
     return result
 
@@ -86,5 +86,5 @@ def method_bat_request(error=None):
     app.logger.info('Error: method_bat_request')
     message = default_error(request.url, error)
     app.logger.error(message)
-    result = body_response(message, 405)
+    result = body_response(message, 400)
     return result

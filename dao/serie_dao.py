@@ -36,7 +36,9 @@ def find():
 
 def find_id(serie_id):
     app.logger.info('Method find_id init')
-    result = list(collection.find(serie_id))
+    result = collection.find_one(serie_id)
+    if(result == None):
+        result = {}
     app.logger.info(f'Result search: {result}')
     app.logger.info('Method find_id ending')
     return result
