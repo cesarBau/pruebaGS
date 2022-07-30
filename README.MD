@@ -28,7 +28,7 @@ MONGO_URI='mongodb://localhost:27017/registries'
 flask run
 ```
 ## Visualizacion de la documentacion.
-Usando la url: https://editor.swagger.io/ puedes importar el archivo alojado en la carpeta raiz con el nombre **swagger-documentation**.
+Usando la url: https://editor.swagger.io/ puedes importar el archivo alojado en la carpeta raiz con el nombre **swagger**.
 
 ### Librerias usadas
 - Flask
